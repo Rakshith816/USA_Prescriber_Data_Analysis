@@ -1,0 +1,17 @@
+### Command - copyFromLocal or put
+hadoop fs -mkdir –p practice/retail_db 
+hadoop fs -put dataFiles/* practice/retail_db/
+
+hadoop fs -mkdir –p practice/retail_db1 
+hadoop fs -put dataFiles practice/retail_db1/  #Creates a subfolder dataFiles under retail_db
+
+### Error if the destination path already exists. To overwrite use –f flag.
+hadoop fs -put -f dataFiles/* practice/retail_db/
+
+### -p flag to Preserves timestamps, ownership and the mode.
+hadoop fs -put -p dataFiles/* practice/retail_db/ 
+
+hadoop fs -put -f  -p dataFiles/* practice/retail_db/ ##if the folder already exists then use -f to avoid errors
+
+### We can also copy multiple files.
+hadoop fs -put -f dataFiles/* sample.txt practice/retail_db/

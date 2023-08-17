@@ -1,0 +1,23 @@
+### How to create a current date column in PySpark
+import datetime as date
+date.datetime.now()
+date.datetime.now().strftime("%Y-%m-%d")
+
+
+sampleDF=spark.createDataFrame([('Robert',25),('Reid',35),('Ram',26)],["EmpName","EmpAge"])
+from pyspark.sql.functions import lit
+sampleDF=sampleDF.withColumn("delivery_date", lit(date.datetime.now().strftime("%Y-%m-%d")))
+sampleDF.show()
+
+### Save the dataframe into Hive Partitioned Table
+spark.sql("create database prescpipeline")
+spark.sql(""" use prescpipeline""")
+sampleDF.write.saveAsTable('samplePartTable', PartitionBy='delivery_date')
+
+### Check below at Hive prompt
+use prescpipeline;
+show tables;
+describe formatted sampleparttable;
+
+### Check the Hive Underlying table file at HDFS
+hdfs dfs -ls hdfs://localhost:9000/hive/user/warehouse/prescpipeline.db/sampleparttable

@@ -1,0 +1,7 @@
+### From Hive Sheel
+# List Databases
+show databases;
+
+### From PySpark Shell
+# List Databases
+spark.sql(""" show databases""").show()

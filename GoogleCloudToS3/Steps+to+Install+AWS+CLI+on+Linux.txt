@@ -1,0 +1,16 @@
+Step-1
+### Download the Installation file using curl command.
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+Step-2
+### Unzip the Installer.
+unzip awscliv2.zip
+
+Step-3
+### Run the Install Program
+sudo ./aws/install
+
+Step-4
+### Confirm the Installation
+aws
+aws --version

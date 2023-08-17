@@ -1,0 +1,20 @@
+In Spark -> We have API called saveAsTable---this is under Writer class and we can use this to save any data frames to hive tables
+
+
+
+Everything in hive will be stored as files in parquet format in hdfs as hive doesent have saparate db.
+in spark browser window--    (any hive command here)
+to access hive....spark.sql("show databases")
+spark.sql("create a database prescpipeline")----once this ges executed in spark, if we go and see hive databases in browser, this db will be created.
+spark.sql("use database  prescpipeline")
+sampleDF=spark.createDataFrame([('Robert',25),('Reid',35),('Ram',26)],["EmpName","EmpAge"])
+sampleDF.write.saveAsTable('sampleHiveTable') -----> this creates the table 'sampleHiveTable' in hive with the content of sampleDF
+sampleHiveTable --- Any name that should be of the hive table
+if we pass partitionBy argument, it will store the file data as per the partition(in hdfs it will create new directory for the partition, like for ex if we did part by delivery date then depending on number of delivery dates so many folders/direc will be created and each having that days data)
+sampleDF.write.saveAsTable('sampleHiveTable',partitionBy='delivery_Date')this will create hive partition table
+Now if we want to find where the underlying file is stored, we can use--> describe formatted tableName;
+It shows the hdfs location, so now if we go and check in that HDFS location the files will be created.
+
+date.datetime.now().strftime("%Y-%m-%d")
+
+In our project, we partition by  date for both presc and dimesion city and then store it in hive table, which will be saved in directory of hdfs, if we dont specify the format in Savetable it will automatically save as parquet file, inside the partition by directory which in our case is date.

@@ -1,0 +1,18 @@
+### Sample DataFrame:
+sampleDF = spark.createDataFrame([('Robert',25),
+                                  ('Reid',35),
+                                  ('Ram',21)], 
+                                 ["EmpName", "EmpAge"])
+
+### Add below property to hive-site.xml file.
+/opt/hive/conf/hive-site.xml
+<property>
+     <name>hive.metastore.warehouse.dir</name>
+     <value>/hive/user/warehouse</value>
+  <description></description>
+</property>
+
+### Create Hive Table from PySpark Shell
+spark.sql(""" create database prescpipeline""")
+spark.sql(""" use prescpipeline""")
+sampleDF.write.saveAsTable('sampleTable')

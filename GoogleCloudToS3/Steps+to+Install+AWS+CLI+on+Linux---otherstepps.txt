@@ -1,0 +1,44 @@
+Check for aws in google cloud local, if its not installed do the following steps. We are doing this to install AWS client through which we can transfer our reports from local to S3
+
+Step-1
+### Download the Installation file using curl command.
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+Step-2
+### Unzip the Installer.
+unzip awscliv2.zip
+
+Step-3
+### Run the Install Program
+sudo ./aws/install
+
+Step-4
+### Confirm the Installation
+aws
+aws --version
+
+
+aws s3 ls s3://prescpipeline  --->prescpipeline is the S3 bucket created in Aws Console., and this is the command to access it from google cloud which require permissions so we need access key to access that bucket.
+
+So we go to AWS to generate access keys through IAM--Identity and acess management
+So go to IAM -> Add users > spark user > check the access keys programatic access > attach policy(eg administrator acess) > finally creaate user
+
+after that we will get 2 keys 1. Access Key -AKIAR7VXZS5NCBS6UXT 2. Secret access key: 
+
+next: create profile in google cloud: aws configure --profile myprofile
+paste your access key id --enter
+copy paste secret key access id-- enter
+enter
+enter
+
+now do aws s3 --profile myprofile ls s3://prescpipeline  enter
+if no error then we have successfully installed CLI client at our local google cloud server and able to access s3 bucket.
+
+After all these steps, refer next note file copy_file_to_s3 and run it
+
+
+
+
+
+
+
